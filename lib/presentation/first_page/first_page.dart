@@ -6,16 +6,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({Key? key}) : super(key: key);
-  final String readRepositories = """
-  query ReadRepositories(\$nRepositories: Int!) {
-    viewer {
-      repositories(last: \$nRepositories) {
-        nodes {
-          id
-          name
-          viewerHasStarred
-        }
-      }
+  final String readProjects = """
+  query ReadProjects {
+    projects{
+     
     }
   }
 """;
@@ -34,15 +28,12 @@ class FirstPage extends StatelessWidget {
           builder: (context, state) {
             return Query(
               options: QueryOptions(
-                document: gql(readRepositories),
+                document: gql(readProjects),
                 // this is the query string you just created
                 variables: {
-                  'nRepositories': 50,
+
                 },
-                pollInterval: const Duration(seconds: 10),
               ),
-              // Just like in apollo refetch() could be used to manually trigger a refetch
-              // while fetchMore() can be used for pagination purpose
               builder: (QueryResult result,
                   {VoidCallback? refetch, FetchMore? fetchMore}) {
                 if (result.hasException) {
